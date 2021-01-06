@@ -1,13 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import MainLayout from './components/Layouts/MainLayout';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
+import {Provider} from 'react-redux';
+import store from './store/store';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <MainLayout />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
