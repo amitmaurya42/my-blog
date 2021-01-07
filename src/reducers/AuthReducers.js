@@ -1,14 +1,16 @@
 import actionTypes from '../Actions/ActionTypes';
 
 const initialState = {
-    isAuthentcated:true
+    isAuthentcated:false,
+    profileData:{}
 }
 
 
 const authReducers = (state=initialState, action) => {
     switch (action.type) {
         case actionTypes.LOGIN_SUCCESS:
-            return {...state,isAuthentcated:true}
+            console.log('action.payload',action.payload)
+            return {...state,isAuthentcated:true,profileData:action.payload}
         case actionTypes.LOGIN_FAILED:
             return {...state,isAuthentcated:false}
         default:

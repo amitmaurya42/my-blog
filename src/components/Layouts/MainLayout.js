@@ -6,9 +6,16 @@ import Login from '../../container/Login';
 import SignUp from '../../container/SignUp';
 import Home from '../../container/Home';
 import { Route,NavLink } from "react-router-dom";
+import {connect} from 'react-redux';
 
 class MainLayout extends React.Component{
     render(){
+        let authData = null
+            if(this.props.isAuthentcated && this.props.profileData.name !== undefined){
+                authData = (<li><p>Hi {this.props.profileData.name}</p><NavLink to="/logout">Logout</NavLink></li>)
+            }else{
+                authData = (<li><NavLink to="/login">Login</NavLink></li>)
+            }
         return (
             <div>
                 <div className="top-content">
@@ -21,8 +28,9 @@ class MainLayout extends React.Component{
                                     <ul className="nav nav-pills nav-stacked">
                                         <li><NavLink  to="/">Home</NavLink></li>
                                         <li><NavLink to="/contact">Contact</NavLink></li>
-                                        <li><NavLink to="/login">Login</NavLink></li>
-                                    </ul><br/>
+                                        {authData}
+                                    </ul>
+                                    <br/>
                                     <div className="input-group">
                                         <input type="text" className="form-control" placeholder="Search Blog.." />
                                         <span className="input-group-btn">
@@ -51,4 +59,11 @@ class MainLayout extends React.Component{
         )
     }
 }
-export default MainLayout
+
+const mapPropsToState = (state)=>{
+    return {
+        isAuthentcated: state.auth.isAuthentcated,
+        profileData:state.auth.profileData
+    }
+}
+export default connect(mapPropsToState,null)(MainLayout)

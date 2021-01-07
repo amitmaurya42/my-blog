@@ -1,14 +1,15 @@
 import axios from 'axios';
 import ActionTypes from '../Actions/ActionTypes';
 
-const login = (email, password)=> {
+export const loginHandler = (email, password)=> {
+    console.log('user---',email,password)
     return dispatch => {
         const data = {
-            name='Amit'
+            name:'Amit'
         }
       setTimeout(() => {
         dispatch(loginSuccess(data));
-      }, 1000);
+      }, 2000);
     };
 }
 
