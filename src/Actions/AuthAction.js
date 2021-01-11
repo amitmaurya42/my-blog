@@ -3,13 +3,13 @@ import ActionTypes from '../Actions/ActionTypes';
 
 export const loginHandler = (email, password)=> {
     console.log('user---',email,password)
+    const loginData = {email:email,password:password,"returnSecureToken":true}
     return dispatch => {
-        const data = {
-            name:'Amit'
-        }
-      setTimeout(() => {
-        dispatch(loginSuccess(data));
-      }, 2000);
+        axios.post(proceess.env.BASE_API_URL+`accounts:signInWithPassword?key=${proceess.env.API_KEY}`,loginData).then((response)=>{
+            dispatch(loginSuccess(response.data));
+        }).catch((error)=>{
+            dispatch(loginFailed(error.response.data));
+        })
     };
 }
 
@@ -19,3 +19,10 @@ const loginSuccess = (data)=>{
         payload:data
     }
 }
+const loginFailed = (data)=>{
+    return {
+        type:ActionTypes.LOGIN_FAILED,
+        payload:data
+    }
+}
+
