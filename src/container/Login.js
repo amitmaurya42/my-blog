@@ -17,7 +17,7 @@ class Login extends React.Component{
         this.form =  new ReactFormInputValidation(this);
         this.form.useRules({
             email:'required|email',
-            password:'required|digits_between:1,8'
+            password:'required|min:1'
         })
         this.form.onformsubmit = (fields)=>{
             this.props.loginHandler(fields.email,fields.password)
