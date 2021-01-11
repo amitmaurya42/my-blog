@@ -5,7 +5,7 @@ export const loginHandler = (email, password)=> {
     console.log('user---',email,password)
     const loginData = {email:email,password:password,"returnSecureToken":true}
     return dispatch => {
-        axios.post(proceess.env.BASE_API_URL+`accounts:signInWithPassword?key=${proceess.env.API_KEY}`,loginData).then((response)=>{
+        axios.post(process.env.BASE_API_URL+`accounts:signInWithPassword?key=${process.env.env.API_KEY}`,loginData).then((response)=>{
             dispatch(loginSuccess(response.data));
         }).catch((error)=>{
             dispatch(loginFailed(error.response.data));
