@@ -9,7 +9,6 @@ class Home extends React.Component{
     }
     render(){
         let redirectToLogin = null
-        console.log('this.props.isAuthentcated',this.props.isAuthentcated)
         if(!this.props.isAuthentcated){
             redirectToLogin=<Redirect to={{pathname: '/login'}}/>
         }

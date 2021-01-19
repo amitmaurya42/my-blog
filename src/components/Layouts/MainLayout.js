@@ -4,6 +4,7 @@ import Footer from '../common/Footer';
 import Auxx from '../../Auxx/Auxx';
 import Login from '../../container/Login';
 import SignUp from '../../container/SignUp';
+import Logout from '../../container/Logout';
 import Home from '../../container/Home';
 import { Route,NavLink } from "react-router-dom";
 import {connect} from 'react-redux';
@@ -11,7 +12,7 @@ import {connect} from 'react-redux';
 class MainLayout extends React.Component{
     render(){
         let authData = null
-            if(this.props.isAuthentcated && this.props.profileData.displayName !== undefined){
+            if(this.props.isAuthentcated){
                 authData = (<li><p>Hi {this.props.profileData.displayName}</p><NavLink to="/logout">Logout</NavLink></li>)
             }else{
                 authData = (<li><NavLink to="/login">Login</NavLink></li>)
@@ -44,7 +45,13 @@ class MainLayout extends React.Component{
                                     <Route exact path="/" component={Home} />
                                     <Route path="/login" component={Login} />
                                     <Route path="/sign-up" component = {SignUp}/>
-                                    <Route path="/contact" render={()=>(<div>List of Items</div>)} />
+                                    <Route path="/contact" render={()=>{(
+                                    <div>
+                                        <p>Public Page</p>
+                                        <p>List of Items</p>
+                                    </div>
+                                    )}} />
+                                    <Route path="/logout" component = {Logout}/>
                                 </div>
                             </div>
                             

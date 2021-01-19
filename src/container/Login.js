@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
-import { loginHandler } from "../Actions/AuthAction";
+import { loginHandler, setProfileHandler } from "../Actions/AuthAction";
 import ReactFormInputValidation from "react-form-input-validation";
 
 class Login extends React.Component{
@@ -23,8 +23,17 @@ class Login extends React.Component{
             this.props.loginHandler(fields.email,fields.password)
         }
     };
-    
-    
+    componentDidMount() {
+        let token = localStorage.getItem('token')
+        if(token){
+            this.props.setProfileHandler(token)
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.isAuthentcated){
+            this.props.history.replace('/')
+        }
+    }
     render(){
         return(
             <React.Fragment>
@@ -81,7 +90,8 @@ const mapPropsToState = (state)=>{
 }
 const mapPropsToDispatch = (dispatch)=>{
     return {
-        loginHandler:(username,password)=> dispatch(loginHandler(username,password))
+        loginHandler:(username,password)=> dispatch(loginHandler(username,password)),
+        setProfileHandler:(token)=>dispatch(setProfileHandler(token))
     }
 }
 export default connect(mapPropsToState,mapPropsToDispatch)(Login);

@@ -1,7 +1,20 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import {connect} from 'react-redux';
+import { setProfileHandler } from "../Actions/AuthAction";
 
 class SignUp extends React.Component{
+    componentDidMount(){
+        let token = localStorage.getItem('token')
+        if(token){
+            this.props.setProfileHandler(token)
+        }
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(this.props.isAuthentcated){
+            this.props.history.replace('/')
+        }
+    }
     render(){
         return(
             <div className="col-sm-8">                
@@ -18,7 +31,7 @@ class SignUp extends React.Component{
                         </div>
                     </div>
                     <div className="form-bottom">
-                        <form role="form" action="" method="post" className="registration-form">
+                        <form method="post" className="registration-form">
                             <div className="form-group">
                                 <label className="sr-only">First name</label>
                                 <input type="text" name="form-first-name" placeholder="First name..." className="form-first-name form-control" id="form-first-name"/>
@@ -45,5 +58,15 @@ class SignUp extends React.Component{
         )
     }
 }
-
-export default SignUp
+const mapPropsToState = (state)=>{
+    return {
+        isAuthentcated: state.auth.isAuthentcated,
+        profileData:state.auth.profileData
+    }
+}
+const mapPropsToDispatch = (dispatch)=>{
+    return {
+        setProfileHandler:(token)=>dispatch(setProfileHandler(token))
+    }
+}
+export default connect(mapPropsToState,mapPropsToDispatch)(SignUp)
