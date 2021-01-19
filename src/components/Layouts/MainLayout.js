@@ -11,8 +11,8 @@ import {connect} from 'react-redux';
 class MainLayout extends React.Component{
     render(){
         let authData = null
-            if(this.props.isAuthentcated && this.props.profileData.name !== undefined){
-                authData = (<li><p>Hi {this.props.profileData.name}</p><NavLink to="/logout">Logout</NavLink></li>)
+            if(this.props.isAuthentcated && this.props.profileData.displayName !== undefined){
+                authData = (<li><p>Hi {this.props.profileData.displayName}</p><NavLink to="/logout">Logout</NavLink></li>)
             }else{
                 authData = (<li><NavLink to="/login">Login</NavLink></li>)
             }

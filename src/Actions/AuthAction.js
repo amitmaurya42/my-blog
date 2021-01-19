@@ -2,13 +2,14 @@ import axios from 'axios';
 import ActionTypes from '../Actions/ActionTypes';
 
 export const loginHandler = (email, password)=> {
-    console.log('user---',email,password)
     console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+    console.log('process.env.BASE_API_URL',process.env.REACT_APP_BASE_API_URL)
     const loginData = {email:email,password:password,"returnSecureToken":true}
     return dispatch => {
-        axios.post(process.env.BASE_API_URL+`accounts:signInWithPassword?key=${process.env.API_KEY}`,loginData).then((response)=>{
+        axios.post(process.env.REACT_APP_BASE_API_URL+`accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`,loginData).then((response)=>{
             dispatch(loginSuccess(response.data));
         }).catch((error)=>{
+            console.log(error.response.data)
             dispatch(loginFailed(error.response.data));
         })
     };
